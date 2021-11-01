@@ -1,0 +1,7 @@
+{% for host1 in list_dict3 %}
+   Current host is {{host1.hostname}}
+   The ips for this host are:
+   {% for ip1 in host1.ip %}
+   - {{ip1}}
+   {% endfor %} 
+{% endfor %}

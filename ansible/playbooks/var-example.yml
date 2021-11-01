@@ -1,0 +1,14 @@
+#var-example.yml with saving output and print them
+---
+  - hosts: webservers
+    vars:
+      path_to_app: "/var/www/html"
+      another_var: "try something else"
+    tasks:
+      - name: See directory contents
+        command: ls -la {{ path_to_app }}
+        register: dir_contents  # define a variable and print using msg in below task
+
+      - name: Debug direcoty contents
+        debug:
+          msg: "{{ dir_contents }}"    

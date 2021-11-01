@@ -1,0 +1,3 @@
+vars_prompt:
+  - name: api_key
+    prompt: Enter the API key

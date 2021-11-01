@@ -1,0 +1,20 @@
+---
+# tasks file for roles/webservers
+
+- name: Uploading application file
+  copy:
+    src: ../files/index.php
+    dest: /var/www/html
+    mode: 0755
+- name: Create Simple info page
+  copy:
+    dest: /var/www/html/info.php
+    content: "<h1> Information about the webserver:saimon: {{ ansible_hostname }} </h1>"    
+
+- name: Configure php.ini file
+  lineinfile:
+    path: /etc/php.ini
+    regexp: ^short_open_tag
+    line: 'short_open_tag=On'
+  notify: Restart apache   # notify to restart apache only found changes on php.ini file
+ 

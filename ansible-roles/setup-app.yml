@@ -1,0 +1,6 @@
+#stup-app.yml
+---
+  - hosts: webservers
+    become: true
+    roles:
+      - webservers

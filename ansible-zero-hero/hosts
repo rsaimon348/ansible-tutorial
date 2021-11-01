@@ -1,0 +1,5 @@
+[webapp]
+testhost ansible_host=34.228.56.234
+
+[mymac]
+localhost ansible_connection=local

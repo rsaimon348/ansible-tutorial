@@ -1,0 +1,34 @@
+- name: Check directory exist
+  stat:
+    path: /opt/saimon-test
+  register: my_folder
+
+- name: Print directory exist
+  debug:
+    msg: "The directory exist"
+  when: my_folder.stat.exists
+
+- name: Create directory if not exist
+  file:
+    path: /opt/saimon-test
+    state: directory
+    mode: 0755
+    group: root
+    owner: root
+  when: my_folder.stat.exists == false 
+
+- name: Downlaod file
+  get_url:
+    url: "{{ item }}"  # https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-zip-file.zip
+    dest: /opt/saimon-test/
+    mode: 0755
+  with_items:
+    - https://www.learningcontainer.com/sample-powerpoint-presentation/#
+    - https://www.learningcontainer.com/sample-text-file/#
+    - https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-zip-file.zip
+    - https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-large-zip-file.zip
+
+- name: Ansible template example
+  template:
+    src : app_properties.conf.j2
+    dest: /opt/saimon-test/app-config.properties

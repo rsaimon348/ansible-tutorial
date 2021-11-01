@@ -1,0 +1,6 @@
+#uname.yml
+---
+  - hosts: webservers
+    tasks:
+      - name: Print uname information 
+        shell: uname

@@ -1,0 +1,25 @@
+---
+  - hosts: webapp
+    become: true
+    tasks:
+      - name: Updating yum packages
+        yum: name=* state=latest
+
+      - name: listing directory
+        command: ls "{{ opt_var }}" #/opt
+        register: dir_contents
+
+      - name : Showing directory content 
+        debug:
+          msg: "{{ dir_contents }}" 
+
+      - name: reading var from group_vars folder
+        shell: echo "{{ my_name }}"
+        register: my_name1
+
+      - name: print echo value
+        debug:
+          msg: "{{ my_name1 }}"  
+            
+
+           

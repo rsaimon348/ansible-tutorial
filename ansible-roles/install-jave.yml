@@ -1,0 +1,8 @@
+---
+  - hosts: webservers
+    become: true
+    vars_prompt:
+      - name: api_key
+        prompt: Enter the API key
+    roles:
+      - install-jarfile

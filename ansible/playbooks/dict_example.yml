@@ -1,0 +1,57 @@
+---
+  - hosts: all
+    vars:
+      dict1:
+        hostname: "test" 
+        ip: "127.0.0.1"
+      list_dict2:
+        - {hostname: "test2", ip: "127.0.0.2"}
+        - {hostname: "test3", ip: "127.0.0.3"}
+      list_dict3: 
+        - {hostname: "test4", ip: [ "127.0.0.4", "127.0.0.5", "127.0.0.6" ] }
+    tasks:
+      # - name: just print message
+      #   debug:
+      #     msg: saimon
+
+      - name: Accessing direct Dictionary value
+        debug:
+          msg: hostname is {{ dict1.hostname }} and ip is {{ dict1.ip}}
+
+      - name: Accessing list of Dictionary
+        debug:
+          msg: hostname is {{ item.hostname }} and ip is {{item.ip}}
+        with_items: 
+          - "{{ list_dict2}}"
+          # - {hostname: "test2", ip: "127.0.0.2"}
+          # - {hostname: "test3", ip: "127.0.0.3"}
+      # - name: Accessing dictionary with one of the value as lists
+      #   template: 
+      #     src: ../templates/host.j2 
+      #     dest: /tmp/message.txt
+      #   with_items:
+      #     - {hostname: "test4", ip: [ "127.0.0.4", "127.0.0.5", "127.0.0.6" ] }        
+
+    # vars:
+    #   continents:
+    #     - Africa
+    #     - Asia
+    #     - South America
+    #     - North America
+    #     - Europe
+    #   webhost: 
+    #     http_port: 8080
+    #     default_gateway: 10.200.50.1
+    #   vlans:
+    #     id: 10
+    #     port: 2  
+        
+    # tasks:
+    # - name: Ansible List variable Example
+    #   debug:
+    #     msg: "{{ continents [1] }}"
+    # - name: List all the items in the array
+    #   debug:
+    #     msg: "{{item}}"
+    #   with_items:
+    #     - "{{continents}}"      

@@ -1,0 +1,73 @@
+setup_inventory file:
+======================================
+    - inventor_file contain all the host name
+
+# list  host inventory 
+ansible --list-hosts all
+ansible -i dev-hosts --list-hosts all (-i define the inventory host list)
+absible --list-hosts (we can user regex)
+
+setup ansible configuraiton file
+============================================================
+    - configuration file will be search in the following order
+        - ANSIBLE_CONFIG engironment variaable if set 
+        - ansible.cfg 
+        - ~/.ansible.cfs 
+        /etc/ansible/ansible.cfg
+
+Ansible command format:
+========================================================
+ansible options <host-patter>
+
+ansible          -m            ping           all
+ansible-command  module-flag   module-name    inventory
+
+ansible -m shell -a "uname"  webservers (use of shell module)
+
+
+Playbooks
+=====================
+
+
+Variables:
+================================
+- Ansible provides variables and metadata about the host it is going to interect.
+- has default values 
+- {{ variable_name }}
+- we can create Playbook variable to specific to the playbook. Create using vars key in key/value and dictinoary/map of variables
+- Can create seperate variabls file and import those in the playbooks
+- we can create variable in the playbook using register  and assigned output of the task
+- we can use debug module to see the variables and debug our playbooks
+- vars dictionary:
+    - 
+
+ansible -m setup webservers
+
+Ansible Rolses:
+========================================
+ansible-galaxy role init roles/webservers
+
+variable precedence:
+======================================================================
+command line values (for example, -u my_user, these are not variables)
+role defaults (defined in role/defaults/main.yml) 1
+inventory file or script group vars 2
+inventory group_vars/all 3
+playbook group_vars/all 3
+inventory group_vars/* 3
+playbook group_vars/* 3
+inventory file or script host vars 2
+inventory host_vars/* 3
+playbook host_vars/* 3
+host facts / cached set_facts 4
+play vars
+play vars_prompt
+play vars_files
+role vars (defined in role/vars/main.yml)
+block vars (only for tasks in block)
+task vars (only for the task)
+include_vars
+set_facts / registered vars
+role (and include_role) params
+include params
+extra vars (for example, -e "user=my_user")(always win precedence)

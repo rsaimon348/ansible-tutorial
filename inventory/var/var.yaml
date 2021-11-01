@@ -1,0 +1,14 @@
+---
+  - hosts: localhost
+    connection: local
+    vars:
+      inv_file: /Users/saimon/inv.txt
+    tasks:
+      - name: create a file
+        file: 
+          path: "{{ inv_file }}" 
+          state: touch
+      # - name: add line in the file
+      #   lineinfile:
+      #     path: "{{ inv_file }}"
+      #     line: "{{ groups['webservers'] }}"     

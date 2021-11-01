@@ -1,0 +1,41 @@
+---
+  - hosts:
+      - webservers
+    vars_prompt:
+    - name: api_key
+      prompt: Enter the API key
+    gather_facts: no
+    become: true
+    tasks:
+      - name: Check directory exist
+        stat:
+          path: /opt/saimon-test
+        register: my_folder
+
+      - name: Print directory exist
+        debug:
+          msg: "The directory exist"
+        when: my_folder.stat.exists
+
+      - name: Create directory if not exist
+        file:
+          path: /opt/saimon-test
+          state: directory
+          mode: 0755
+          group: root
+          owner: root
+        when: my_folder.stat.exists == false 
+
+      - name: Downlaod file
+        get_url:
+          url: https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-zip-file.zip
+          dest: //opt/saimon-test/mytestdownlowd.zip
+          mode: 0755
+
+      - name: Ansible template example
+        template:
+          src : ../templates/app_properties.conf.j2
+          dest: /opt/saimon-test/app-config.properties
+
+
+

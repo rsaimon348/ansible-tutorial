@@ -1,0 +1,6 @@
+#template-example.yml
+---
+  - hosts: webservers
+    become: true
+    roles:
+      - tem-example

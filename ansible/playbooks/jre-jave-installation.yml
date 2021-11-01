@@ -1,0 +1,13 @@
+---
+  - hosts: app1
+    become: true
+    tasks:
+      - name : Downlaod Java JRE
+        get_url:
+          url: https://javadl.oracle.com/webapps/download/AutoDL?BundleId=245466_4d5417147a92418ea8b615e228bb6935
+          dest: /tmp
+      - name: Install JRE from download RMP
+        yum:
+          name: /tmp/jre-8u311-linux-i586.rpm
+          state: present
+

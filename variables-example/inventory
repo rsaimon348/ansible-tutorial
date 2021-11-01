@@ -1,0 +1,6 @@
+[webservers]
+34.228.56.234
+
+
+[local]
+control ansible_connection=local
